@@ -19,7 +19,9 @@
         <ul class="flex space-x-2">
             @auth
                 <li>
-                    {{ auth()->user()->name ?? 'Anonymous'}}
+                    <a href="{{ route('my-job-applications.index') }}">
+                        {{ auth()->user()->name ?? 'Anonymous'}}: Applications
+                    </a>
                 </li>
                 <li>
                     <form action="{{ route('auth.destroy') }}" method="POST">
