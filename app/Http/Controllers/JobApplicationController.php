@@ -12,7 +12,6 @@ class JobApplicationController extends Controller
      */
     public function create(Job $job)
     {
-        $this->authorize('apply', $job);
         return view('job_application.create', compact('job'));
     }
 
@@ -21,6 +20,8 @@ class JobApplicationController extends Controller
      */
     public function store(Job $job,StoreJobApplicationRequest $request)
     {
+        $this->authorize('apply', $job);
+
         $job->jobApplications()->create([
             'user_id' => $request->user()->id,
              ...$request->validated()
@@ -28,13 +29,5 @@ class JobApplicationController extends Controller
 
         return redirect()->route('jobs.show', $job)
             ->with('success', 'Job application applied.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
